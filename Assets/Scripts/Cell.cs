@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
-    [Flags]
     public enum KOMA
     {
         None,
@@ -19,34 +18,31 @@ public class Cell : MonoBehaviour
 
     [SerializeField] GameObject Koma;
 
-    private Neighbours n;
+    private Neighbours _neighbours;
 
     private int _x;
     private int _y;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Koma.SetActive(false);
-    }
-
+    
     public void SetIndex(int x, int y)
     {
         _x = x;
         _y = y;
-        n.SetNeighbours(x, y);
+        _neighbours = new Neighbours(x, y);
     }
 
-   
-    
-    public Tuple<int, int> GetIndex()
+    public (int, int) GetIndex()
     {
-        return Tuple.Create(_x, _y);
+        return (_x, _y);
     }
 
-    // Update is called once per frame
-    void Update()
+    public (int, int) GetNeighbour(Neighbours.Direction direction)
     {
+        return _neighbours.GetNeighbour(direction);
+    }
+
+    public Color GetColor()
+    {
+        return Koma.GetComponent<Image>().color;
     }
 
     public Boolean IsOccupied()
@@ -78,7 +74,6 @@ public class Cell : MonoBehaviour
 
     public void OnCellClicked()
     {
-        Debug.Log("OnCellClicked");
         this.GetComponentInParent<CellContainer>().OnCellClicked(this);
     }
 }
