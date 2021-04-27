@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
+    
     public enum KOMA
     {
         None,
