@@ -2,35 +2,44 @@ using System;
 
 public class Neighbours
 {
-    int North { get; set; }
-    int East { get; set; }
-    int West { get; set; }
-    int South { get; set; }
+    private (int, int) North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest;
 
-    private Neighbours()
+    public enum Direction
     {
+        North,
+        NorthEast,
+        East,
+        SouthEast,
+        South,
+        SouthWest,
+        West,
+        NorthWest
     }
 
-    public void SetNeighbours(int x, int y)
+    public Neighbours(int x, int y)
     {
-        if (x - 1 > 0)
-        {
-            West = (x - 1);
-        }
+        West = (x, (y - 1));
+        North = ((x - 1), y);
+        East = (x, (y + 1));
+        South = ((x + 1), y);
+        NorthEast = ((x - 1), (y + 1));
+        NorthWest = ((x - 1), (y - 1));
+        SouthEast = ((x + 1), (y + 1));
+        SouthWest = ((x + 1), (y - 1));
+    }
 
-        if (y - 1 > 0)
+    public (int, int) GetNeighbour(Direction direction)
+    {
+        return direction switch
         {
-            North = (y - 1);
-        }
-
-        if (x  < 8)
-        {
-            East = (x + 1);
-        }
-
-        if (y < 8)
-        {
-            South = (y + 1);
-        }
+            Direction.North => North,
+            Direction.East => East,
+            Direction.West => West,
+            Direction.South => South,
+            Direction.NorthEast => NorthEast,
+            Direction.NorthWest => NorthWest,
+            Direction.SouthEast => SouthEast,
+            Direction.SouthWest => SouthWest,
+        };
     }
 }
