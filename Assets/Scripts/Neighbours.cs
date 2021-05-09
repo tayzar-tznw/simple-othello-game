@@ -1,5 +1,3 @@
-using System;
-
 public class Neighbours
 {
     private (int, int) North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest;
@@ -40,6 +38,7 @@ public class Neighbours
             Direction.NorthWest => NorthWest,
             Direction.SouthEast => SouthEast,
             Direction.SouthWest => SouthWest,
+            _ => (-1, -1)
         };
     }
 }

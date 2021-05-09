@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
-    
     public enum KOMA
     {
         None,
@@ -19,11 +18,12 @@ public class Cell : MonoBehaviour
 
     [SerializeField] GameObject Koma;
 
+    private KOMA identity = KOMA.None;
     private Neighbours _neighbours;
 
     private int _x;
     private int _y;
-    
+
     public void SetIndex(int x, int y)
     {
         _x = x;
@@ -41,11 +41,11 @@ public class Cell : MonoBehaviour
         return _neighbours.GetNeighbour(direction);
     }
 
-    public Color GetColor()
+    public KOMA GetKomaType()
     {
-        return Koma.GetComponent<Image>().color;
+        return identity;
     }
-
+    
     public Boolean IsOccupied()
     {
         return Koma.activeSelf;
@@ -61,14 +61,17 @@ public class Cell : MonoBehaviour
             case KOMA.Black:
                 Koma.SetActive(true);
                 Koma.GetComponent<Image>().color = Color.black;
+                identity = KOMA.Black;
                 break;
             case KOMA.White:
                 Koma.SetActive(true);
                 Koma.GetComponent<Image>().color = Color.white;
+                identity = KOMA.White;
                 break;
             case KOMA.Blue:
                 Koma.SetActive(true);
                 Koma.GetComponent<Image>().color = Color.blue;
+                identity = KOMA.Blue;
                 break;
         }
     }
