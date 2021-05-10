@@ -21,21 +21,16 @@ public class Cell : MonoBehaviour
     private KOMA identity = KOMA.None;
     private Neighbours _neighbours;
 
-    private int _x;
-    private int _y;
+    // private int _x;
+    // private int _y;
 
     public void SetIndex(int x, int y)
     {
-        _x = x;
-        _y = y;
+        // _x = x;
+        // _y = y;
         _neighbours = new Neighbours(x, y);
     }
-
-    public (int, int) GetIndex()
-    {
-        return (_x, _y);
-    }
-
+    
     public (int, int) GetNeighbour(Neighbours.Direction direction)
     {
         return _neighbours.GetNeighbour(direction);
@@ -45,7 +40,7 @@ public class Cell : MonoBehaviour
     {
         return identity;
     }
-    
+
     public Boolean IsOccupied()
     {
         return Koma.activeSelf;
@@ -57,6 +52,7 @@ public class Cell : MonoBehaviour
         {
             case KOMA.None:
                 Koma.SetActive(false);
+                identity = KOMA.None;
                 break;
             case KOMA.Black:
                 Koma.SetActive(true);
