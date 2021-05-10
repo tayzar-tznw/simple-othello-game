@@ -42,4 +42,15 @@ public class CommandInvoker
         _counter--;
         return true;
     }
+
+    public Boolean TryRedoCommand()
+    {
+        if (_counter < _commandHistory.Count)
+        {
+            _counter++;
+            return true;
+        }
+
+        return false;
+    }
 }

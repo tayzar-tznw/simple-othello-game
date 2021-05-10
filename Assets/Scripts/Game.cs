@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     private readonly CommandInvoker _commandInvoker = new CommandInvoker();
     [SerializeField] private Button Undo;
+    [SerializeField] private Button Redo;
     [SerializeField] private CellContainer cellContainer;
     Cell.KOMA CurrentTurn = Cell.KOMA.Black;
     private Cell[,] Cells;
@@ -16,6 +17,7 @@ public class Game : MonoBehaviour
         cellContainer.OnCellClicked = OnCellClicked;
         Cells = cellContainer.GetCells();
         Undo.onClick.AddListener(OnUndoClicked);
+        Redo.onClick.AddListener(OnRedoClicked);
         FindValidCells();
     }
 
@@ -39,6 +41,14 @@ public class Game : MonoBehaviour
     private void OnUndoClicked()
     {
         if (_commandInvoker.TryUndoCommand())
+        {
+            Execute();
+        }
+    }
+
+    private void OnRedoClicked()
+    {
+        if (_commandInvoker.TryRedoCommand())
         {
             Execute();
         }
